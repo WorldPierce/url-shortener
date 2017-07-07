@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "express": "^4.15.3",
-    "mongodb": "^2.2.29",
+    "mongodb": "^2.2.30",
     "nodemon": "^1.11.0",
     "mongoose": "^4.11.1",
     "cors": "^2.8.3",

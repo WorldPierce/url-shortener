@@ -16,7 +16,7 @@ mongoose.connect(MONGODB_URI, {
   useMongoClient: true
 });
 
-var datastore = require('./datastore').sync;
+//var datastore = require('./datastore').sync;
 //datastore.initializeApp(app);
 
 app.use(cors());
@@ -70,7 +70,7 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
 });
 
 //query database and forward to original url
-app.get('/:urlToForward', (req,res)=>{
+app.get('/test/:urlToForward', (req,res)=>{
   var shorterUrl = req.params.urlToForward;
   //find url
   //var url = datastore.get(shorterUrl);
@@ -90,15 +90,7 @@ app.get('/:urlToForward', (req,res)=>{
   });
 });
 
-function initializeDatastoreOnProjectCreation() {
-  if(!connected){
-    connected = datastore.connect();
-  }
-  if (!datastore.get("initialized")) {
-    //datastore.set("posts", initialPosts);
-    datastore.set("initialized", true);
-  }  
-}
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
