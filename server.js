@@ -25,6 +25,8 @@ app.get("/", function (request, response) {
 app.get('/new/:urlToShorten(*)', (req, res)=>{
   //ES6 deconstuctor grabs var of same name
   var {urlToShorten} = req.params;
+  
+  return res.json({urlToShorten});
   console.log(urlToShorten);
 });
 

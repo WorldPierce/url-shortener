@@ -4,6 +4,13 @@
 // by default, you've got jQuery,
 // add other scripts at the bottom of index.html
 
+var app = angular.module('shortUrlApp', []);
+
+app.controller('shortAppCtrl', ($scope) => {
+ 
+   
+})
+
 $(function() {
   console.log('hello world :o');
   
@@ -13,14 +20,14 @@ $(function() {
     });
   });
 
-  $('form').submit(function(event) {
-    event.preventDefault();
-    var dream = $('input').val();
-    $.post('/new?' + $.param({dream: dream}), function() {
-      //$('<li></li>').text(dream).appendTo('ul#dreams');
-      //$('input').val('');
-      //$('input').focus();
-    });
-  });
+  // $('form').submit(function(event) {
+  //   event.preventDefault();
+  //   var dream = $('input').val();
+  //   $.post('/new?' + $.param({dream: dream}), function() {
+  //     //$('<li></li>').text(dream).appendTo('ul#dreams');
+  //     //$('input').val('');
+  //     //$('input').focus();
+  //   });
+  // });
 
 });

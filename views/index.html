@@ -8,7 +8,7 @@
 <!-- hbs(handlebars): http://handlebarsjs.com/ -->
 
 <!DOCTYPE html>
-<html>
+<html ng-app="shortUrlApp">
   <head>
     <title>URL Shortener</title>
     <meta name="description" content="A url shortener made with Glitch">
@@ -17,8 +17,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/style.css">
+    
   </head>
-  <body>
+  <body class="text-center">
     <header>
       <h1>
         URL Shortener
@@ -26,16 +27,12 @@
     </header>
 
     <main>
-      
-      <p>Enter URL:</p>
-      <form>
-        <input type="text" maxlength="100" placeholder="Enter URL">
-        <button type="submit">Submit</button>
+      <form ng-controller='shortAppCtrl'>
+        
+        <input type="text" maxlength="100" placeholder="Enter URL" ng-model="urlToShorten">
+        <a class="btn btn-primary" ng-href='/new/{{urlToShorten}}'>Submit</a>
       </form>
-      <section class="dreams">
-        <ul id="dreams">
-        </ul>
-      </section>
+      
     </main>
 
     <footer>
@@ -48,6 +45,8 @@
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"
             integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="/client.js"></script>
 
   </body>
