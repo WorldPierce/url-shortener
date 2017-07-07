@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
+app.get("/", function (request, response, next) {
   //initializeDatastoreOnProjectCreation();
   response.sendFile(__dirname + '/views/index.html');
 });
@@ -51,11 +51,11 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
       shorterUrl: short
     });
     
-    // data.save(err=>{
-    //   if(err){
-    //     return res.send(err);
-    //   }
-    // });
+    data.save(err=>{
+      if(err){
+        return res.send(err);
+      }
+    });
     
  //   var url = datastore.get("urls");
     //url.push(data);
@@ -70,11 +70,12 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
 });
 
 //query database and forward to original url
-app.get('/test/:urlToForward', (req,res)=>{
+app.get('/:urlToForward', (req,res, next)=>{
   var shorterUrl = req.params.urlToForward;
   //find url
   //var url = datastore.get(shorterUrl);
-  //console.log(url);
+  console.log(shorterUrl);
+  if(shorterUrl != null){
   shortUrl.findOne({'shorterUrl': shorterUrl}, (err,data) =>{
     if(err){
       return res.send(err);
@@ -88,7 +89,9 @@ app.get('/test/:urlToForward', (req,res)=>{
       res.redirect(301, 'http://' + data.originalUrl);
     }
   });
+  }
 });
+
 
 
 // listen for requests :)
