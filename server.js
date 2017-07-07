@@ -11,7 +11,7 @@ var shortUrl = require('./models/shortUrl');
 
 //connect to database mongoose pluralizes connections
 var MONGODB_URI = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DB_PORT+'/'+process.env.DB;
-mongoose.connect(process.env.MONGODB_URI || 'https://deep-level.glitch.me/models/shortUrls.js');
+mongoose.connect(MONGODB_URI || 'https://deep-level.glitch.me/models/shortUrls.js');
 
 
 app.use(cors());
@@ -78,22 +78,6 @@ app.get('/:urlToForward', (req,res)=>{
   });
 });
 
-app.get("/dreams", function (request, response) {
-  response.send(dreams);
-});
-
-// could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/dreams", function (request, response) {
-  dreams.push(request.query.dream);
-  response.sendStatus(200);
-});
-
-// Simple in-memory store for now
-var dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
