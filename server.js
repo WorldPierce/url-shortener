@@ -11,9 +11,9 @@ var shortUrl = require('./models/shortUrl');
 var connected=false;
 
 //connect to database mongoose pluralizes connections
-var MONGODB_URI = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DB_PORT+'/'+process.env.DB;
-console.log(process.env.MONGODB_URI)
-mongoose.connect(process.env.MONGODB_URI || 'https://deep-level.glitch.me/models/shortUrls.js');
+var MONGODB_URI = 'mongodb://192.169.0.5/foo';
+console.log(process.env.USER)
+mongoose.connect(MONGODB_URI);
 
 var datastore = require('./datastore').sync;
 //datastore.initializeApp(app);
@@ -55,8 +55,8 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
     //   }
     // });
     
-    var url = datastore.get("urls");
-    url.push(data);
+ //   var url = datastore.get("urls");
+    //url.push(data);
     res.json(data);
   }
   var data = new shortUrl({
