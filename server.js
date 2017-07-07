@@ -1,6 +1,5 @@
 // server.js
 // where your node app starts
-
 // init project
 var express = require('express');
 var app = express();
@@ -11,7 +10,7 @@ var shortUrl = require('./models/shortUrl');
 var connected=false;
 
 //connect to database mongoose pluralizes connections
-var MONGODB_URI = 'mongodb://192.169.0.5/foo';
+var MONGODB_URI = 'mongodb://admin:admin@ds151702.mlab.com:51702/shorturldb';
 console.log(process.env.USER)
 mongoose.connect(MONGODB_URI);
 
