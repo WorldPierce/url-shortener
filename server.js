@@ -12,13 +12,16 @@ var connected=false;
 //connect to database mongoose pluralizes connections
 var MONGODB_URI = 'mongodb://admin:admin@ds151702.mlab.com:51702/shorturldb';
 //console.log(process.env.USER)
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, {
+  useMongoClient: true
+});
 
 var datastore = require('./datastore').sync;
 //datastore.initializeApp(app);
 
 app.use(cors());
 app.use(bodyParser.json());
+
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
