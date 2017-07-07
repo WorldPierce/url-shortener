@@ -10,7 +10,8 @@ var bodyParser = require('body-parser');
 var shortUrl = require('./models/shortUrl');
 
 //connect to database mongoose pluralizes connections
-mongoose.connect(process.env.Mono)
+var MONGODB_URI = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DB_PORT+'/'+process.env.DB;
+mongoose.connect(process.env.MONGODB_URI || MONGODB_URI);
 
 
 app.use(cors());
