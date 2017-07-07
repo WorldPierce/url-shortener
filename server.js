@@ -49,7 +49,7 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
         return res.send(err);
       }
     });
-    res.json({data});
+    res.json(data);
   }
   var data = new shortUrl({
     originalUrl: urlToShorten,
@@ -57,6 +57,25 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
   })
   return res.json(data);
   //console.log(urlToShorten);
+});
+
+//query database and forward to original url
+app.get('/:urlToForward', (req,res)=>{
+  var shorterUrl = req.params.urlToForward;
+  
+  shortUrl.findOne({'shorterUrl': shorterUrl}, (err,data) =>{
+    if(err){
+      return res.send(err);
+    }
+    var re = new RegExp("^(http|https)://", "i");
+    var strCheck = data.originalUrl;
+    if(re.test(strCheck)){
+      res.redirect(301, data.originalUrl);
+    }
+    else{
+      res.redirect(301, 'http://' + data.originalUrl);
+    }
+  });
 });
 
 app.get("/dreams", function (request, response) {
