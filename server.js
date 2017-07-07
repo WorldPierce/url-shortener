@@ -11,7 +11,7 @@ var connected=false;
 
 //connect to database mongoose pluralizes connections
 var MONGODB_URI = 'mongodb://admin:admin@ds151702.mlab.com:51702/shorturldb';
-console.log(process.env.USER)
+//console.log(process.env.USER)
 mongoose.connect(MONGODB_URI);
 
 var datastore = require('./datastore').sync;
