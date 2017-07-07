@@ -74,8 +74,8 @@ app.get('/:urlToForward', (req,res, next)=>{
   var shorterUrl = req.params.urlToForward;
   //find url
   //var url = datastore.get(shorterUrl);
-  console.log(shorterUrl);
-  if(shorterUrl != null){
+  //console.log(shorterUrl);
+  if(shorterUrl != "dreams"){
   shortUrl.findOne({'shorterUrl': shorterUrl}, (err,data) =>{
     if(err){
       return res.send(err);
