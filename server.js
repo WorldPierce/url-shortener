@@ -7,6 +7,11 @@ var app = express();
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var shortUrl = require('./models/shortUrl');
+
+//connect to database mongoose pluralizes connections
+mongoose.connect(process.env.Mono)
+
 
 app.use(cors());
 app.use(bodyParser.json());
