@@ -8,13 +8,14 @@ var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var shortUrl = require('./models/shortUrl');
+var connected=false;
 
 //connect to database mongoose pluralizes connections
 var MONGODB_URI = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DB_PORT+'/'+process.env.DB;
 mongoose.connect(process.env.MONGODB_URI || 'https://deep-level.glitch.me/models/shortUrls.js');
 
 var datastore = require('./datastore').sync;
-datastore.initializeApp(app);
+//datastore.initializeApp(app);
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,6 +28,7 @@ app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response) {
+  //initializeDatastoreOnProjectCreation();
   response.sendFile(__dirname + '/views/index.html');
 });
 
@@ -46,11 +48,14 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
       shorterUrl: short
     });
     
-    data.save(err=>{
-      if(err){
-        return res.send(err);
-      }
-    });
+    // data.save(err=>{
+    //   if(err){
+    //     return res.send(err);
+    //   }
+    // });
+    
+    var url = datastore.get("urls");
+    url.push(data);
     res.json(data);
   }
   var data = new shortUrl({
@@ -64,7 +69,9 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
 //query database and forward to original url
 app.get('/:urlToForward', (req,res)=>{
   var shorterUrl = req.params.urlToForward;
-  
+  //find url
+  //var url = datastore.get(shorterUrl);
+  //console.log(url);
   shortUrl.findOne({'shorterUrl': shorterUrl}, (err,data) =>{
     if(err){
       return res.send(err);
@@ -80,7 +87,15 @@ app.get('/:urlToForward', (req,res)=>{
   });
 });
 
-
+function initializeDatastoreOnProjectCreation() {
+  if(!connected){
+    connected = datastore.connect();
+  }
+  if (!datastore.get("initialized")) {
+    //datastore.set("posts", initialPosts);
+    datastore.set("initialized", true);
+  }  
+}
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
