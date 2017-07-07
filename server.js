@@ -11,8 +11,10 @@ var shortUrl = require('./models/shortUrl');
 
 //connect to database mongoose pluralizes connections
 var MONGODB_URI = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DB_PORT+'/'+process.env.DB;
-mongoose.connect(MONGODB_URI || 'https://deep-level.glitch.me/models/shortUrls.js');
+mongoose.connect(process.env.MONGODB_URI || 'https://deep-level.glitch.me/models/shortUrls.js');
 
+var datastore = require('./datastore').sync;
+datastore.initializeApp(app);
 
 app.use(cors());
 app.use(bodyParser.json());
