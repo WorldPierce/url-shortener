@@ -35,11 +35,28 @@ app.get('/new/:urlToShorten(*)', (req, res)=>{
   //REGEX FOR URL
   var experession = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
   
+  
   if(experession.test(urlToShorten) === true){
-    res.json({urlToShorten});
+    var short = Math.floor(Math.random() * 100000).toString();
+    
+    var data = new shortUrl({
+      originalUrl: urlToShorten,
+      shorterUrl: short
+    });
+    
+    data.save(err=>{
+      if(err){
+        return res.send(err);
+      }
+    });
+    res.json({data});
   }
-  return res.json({urlToShorten: 'Failed'});
-  console.log(urlToShorten);
+  var data = new shortUrl({
+    originalUrl: urlToShorten,
+    shorterUrl: 'InvalidUrl'
+  })
+  return res.json(data);
+  //console.log(urlToShorten);
 });
 
 app.get("/dreams", function (request, response) {
