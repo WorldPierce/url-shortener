@@ -22,6 +22,12 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/new/:urlToShorten(*)', (req, res)=>{
+  //ES6 deconstuctor grabs var of same name
+  var {urlToShorten} = req.params;
+  console.log(urlToShorten);
+});
+
 app.get("/dreams", function (request, response) {
   response.send(dreams);
 });
